@@ -23,8 +23,9 @@ export class NoteService {
       headers: { token: '3b8ny__' + localStorage.getItem('userToken') },
     });
   }
-  deleteNote(id:string , data:object): Observable<any> {
-    return this._HttpClient.put(`${baseUrl}/api/v1/notes/${id}`, data, {
+  
+  deleteNote(id:string ): Observable<any> {
+    return this._HttpClient.delete(`${baseUrl}/api/v1/notes/${id}`,  {
       headers: { token: '3b8ny__' + localStorage.getItem('userToken') },
     });
   }
