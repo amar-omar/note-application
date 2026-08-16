@@ -1,0 +1,138 @@
+<div class="container my-4">
+  <button
+    type="button"
+    class="btn btn-primary shadow-lg px-4 py-2 rounded-xl"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    data-bs-whatever="@mdo"
+  >
+    Add Note
+  </button>
+</div>
+
+<div class="container">
+  <div class="row">
+    @for (note of notesList; track note._id) {
+      <div class="col-md-4 py-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ note.title }}</h5>
+            <p>{{ note.content }}</p>
+          </div>
+          <div class="card-body">
+           <button
+  type="button"
+  class="bg-warning shadow-lg px-4 py-2 rounded text-white"
+  data-bs-toggle="modal"
+  data-bs-target="#updateNote"
+  (click)="updateNote(note, note._id)"
+>
+  Update
+</button>
+            <button
+              href="#"
+              class="card-link bg-danger px-4 py-2 shadow-lg rounded text-white"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New Note</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addNoteForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              formControlName="title"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Content:</label>
+            <textarea
+              class="form-control"
+              id="Content"
+              formControlName="content"
+            ></textarea>
+          </div>
+          <div class="modal-footer">
+         
+            <button type="button" class="btn btn-primary" (click)="onSubmit()">
+              Add Note 
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="updateNote"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">update Note</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="updateNoteForm" (ngSubmit)="updateNoteForms()">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              formControlName="title"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Content:</label>
+            <textarea
+              class="form-control"
+              id="Content"
+              formControlName="content"
+            ></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-warning"> 
+              update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

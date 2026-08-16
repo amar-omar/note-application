@@ -1,0 +1,150 @@
+<div class="w-75 mx-auto rounded-3 border p-4 my-5 shadow-lg bg-white">
+  <h2 class="text-center fw-bold mb-4 text-primary">Register Now</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="sendRegisterData()">
+    <!-- Name Input -->
+    <div class="mb-3">
+      <label for="name" class="form-label fw-semibold">Name</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        class="form-control"
+        placeholder="Enter your full name"
+      />
+    </div>
+    @if (
+      registerForm.get("name")?.errors &&
+      (registerForm.get("name")?.touched || registerForm.get("name")?.dirty)
+    ) {
+      <div class="text-white p-1 small bg-danger rounded shadow-lg">
+        @if (registerForm.get("name")?.getError("required")) {
+          <p>name is required</p>
+        } @else if (registerForm.get("name")?.getError("minlength")) {
+          <p>name minimum length 3</p>
+        } @else if (registerForm.get("name")?.getError("maxlength")) {
+          <p>name maximum length 20</p>
+        }
+      </div>
+    }
+
+    <!-- Email Input -->
+    <div class="mb-3">
+      <label for="email" class="form-label fw-semibold">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="form-control"
+        placeholder="name@example.com"
+      />
+    </div>
+
+    @if (
+      registerForm.get("email")?.errors &&
+      (registerForm.get("email")?.touched || registerForm.get("email")?.dirty)
+    ) {
+      <div class="text-white p-1 small bg-danger rounded shadow-lg"role="alert">
+        @if (registerForm.get("email")?.getError("required")) {
+          <p>email is required</p>
+        } @else if (registerForm.get("email")?.getError("email")) {
+          <p>email must be valid</p>
+        }
+      </div>
+    }
+
+    <!-- Phone Input -->
+    <div class="mb-3">
+      <label for="phone" class="form-label fw-semibold">Phone</label>
+      <input
+        type="tel"
+        id="phone"
+        formControlName="phone"
+        class="form-control"
+        placeholder="01xxxxxxxxx"
+      />
+    </div>
+
+    @if (
+      registerForm.get("phone")?.errors &&
+      (registerForm.get("phone")?.touched || registerForm.get("phone")?.dirty)
+    ) {
+      <div class="text-white p-1 small bg-danger rounded shadow-lg"role="alert">
+        @if (registerForm.get("phone")?.getError("required")) {
+          <p>phone is required</p>
+        } @else if (registerForm.get("phone")?.getError("pattern")) {
+          <p>phone must be valid</p>
+        }
+      </div>
+    }
+
+    <!-- Age Input -->
+    <div class="mb-4">
+      <label for="age" class="form-label fw-semibold">Age</label>
+      <input
+        type="number"
+        id="age"
+        formControlName="age"
+        class="form-control"
+        placeholder="e.g. 25"
+      />
+    </div>
+    @if (
+      registerForm.get("age")?.errors &&
+      (registerForm.get("age")?.touched || registerForm.get("age")?.dirty)
+    ) {
+      <div class="text-white p-1 my-2 small bg-danger rounded shadow-lg"role="alert">
+        @if (registerForm.get("age")?.getError("required")) {
+          <p>Age is required</p>
+        } @else if (registerForm.get("age")?.getError("min")) {
+          <p>Ahe is getter than 18</p>
+        }
+      </div>
+    }
+
+    <!-- Password Input -->
+    <div class="mb-3">
+      <label for="password" class="form-label fw-semibold">Password</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        class="form-control"
+        placeholder="••••••••"
+      />
+    </div>
+    @if (
+      registerForm.get("password")?.errors &&
+      (registerForm.get("password")?.touched ||
+        registerForm.get("password")?.dirty)
+    ) {
+      <div class="text-white p-1 my-2 small bg-danger rounded shadow-lg"role="alert">
+        @if (registerForm.get("password")?.getError("required")) {
+          <p>password is required</p>
+        } @else if (registerForm.get("password")?.getError("pattern")) {
+          <p>
+            Password must start with an uppercase letter and contain 6 to 11
+            characters using only lowercase letters and numbers.
+          </p>
+        }
+      </div>
+    }
+
+    <!-- Submit Button -->
+
+    <button
+      [disabled]="registerForm.invalid ||isLoading"
+      type="submit"
+      class="btn btn-primary w-100 py-2 fw-bold shadow-sm"
+    > Create Account
+      @if (isLoading) {
+        <i class="fas fa-spinner fa-spin"></i>
+      } 
+    </button>
+    @if (errorMessage) {
+      <div class="alert alert-danger mt-3" role="alert">
+        {{ errorMessage }}
+      </div>
+    }
+  </form>
+</div>
