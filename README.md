@@ -1,4 +1,38 @@
-# NoteProject
+# 📝 Note Application
+
+A simple and responsive Note Application built with Angular.
+
+## 🚀 Features
+
+- User Registration
+  ### ![Login Screenshot](img width="1919" height="905" alt="Screenshot 2026-08-16 173855"/>
+)
+- User Login & Logout
+- Authentication Guard
+- Add Notes
+- Update Notes
+- Delete Notes
+- Search Notes by Title
+- Form Validation
+- Responsive Design
+- Empty Notes State
+- Favicon
+
+## 🛠️ Technologies
+
+- Angular
+- TypeScript
+- Bootstrap
+- Tailwind CSS
+- Font Awesome
+- REST API
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/amar-omar/note-application.git
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
 
