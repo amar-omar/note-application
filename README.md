@@ -1,22 +1,29 @@
-# 📝 Note Application
+📝 Note Application
 
 A simple and responsive Note Application built with Angular.
 
 ## 🚀 Features
 
-### User Registration
+### User Registration & validation
 ![Login Screenshot](https://github.com/user-attachments/assets/ee4a79dc-68d9-4924-9a9e-116dd5bca795)
-- User Login & Logout
+### User Login & Logout
+![Login Screenshot](https://github.com/user-attachments/assets/d2641c65-d217-434f-8f11-93757f92cfe3)
 - Authentication Guard
-- Add Notes
-- Update Notes
+### Add Notes
+![Login Screenshot](https://github.com/user-attachments/assets/dd9985d9-f474-47d8-add3-10436b36f5a6)
+### Update Notes
+![Login Screenshot](https://github.com/user-attachments/assets/36309676-1ea1-440d-88bb-e9ae9863f06c)
 - Delete Notes
-- Search Notes by Title
-- Form Validation
-- Responsive Design
-- Empty Notes State
-- Favicon
-
+### Search Notes by Title
+![Login Screenshot](https://github.com/user-attachments/assets/6e341098-d570-4a5a-9329-08970fed502f)
+### Form Validation
+![Login Screenshot](https://github.com/user-attachments/assets/23656204-5a70-4769-8deb-87159c3a38ed)
+### Responsive Design
+![Login Screenshot](https://github.com/user-attachments/assets/4a69d077-088a-4705-949b-7f707a380e75)
+### Empty Notes State
+![Login Screenshot](https://github.com/user-attachments/assets/3b9a9a80-11c0-4788-9e33-716c5ee26c2b)
+### Favicon
+![Login Screenshot](https://github.com/user-attachments/assets/6a284d7b-0088-4a30-976d-5ecad73beb5e)
 ## 🛠️ Technologies
 
 - Angular
