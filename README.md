@@ -4,9 +4,8 @@ A simple and responsive Note Application built with Angular.
 
 ## 🚀 Features
 
-- User Registration
-  ### ![Login Screenshot](img width="1919" height="905" alt="Screenshot 2026-08-16 173855"/>
-)
+### User Registration
+![Login Screenshot](https://github.com/user-attachments/assets/ee4a79dc-68d9-4924-9a9e-116dd5bca795)
 - User Login & Logout
 - Authentication Guard
 - Add Notes
