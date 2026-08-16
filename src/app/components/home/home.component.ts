@@ -13,13 +13,12 @@ import { SearchPipe } from '../../shared/pipes/search.pipe';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ReactiveFormsModule , SearchPipe , FormsModule],
+  imports: [ReactiveFormsModule, SearchPipe, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
-  searchTerm: string = '';
-  noteId!: string;
+  noteId: string = '';
   notesList: SendData[] = [];
   searchTermInput: string = '';
   private readonly _NoteService = inject(NoteService);
@@ -42,30 +41,25 @@ export class HomeComponent implements OnInit {
 
     this._NoteService.addNote(this.addNoteForm.value).subscribe({
       next: (res) => {
-        console.log(res);
         this.addNoteForm.reset();
         this.getNote();
       },
+      error: (err) => {},
+    });
+  }
+  getNote(): void {
+    this._NoteService.getNote().subscribe({
+      next: (res) => {
+        this.notesList = res.notes;
+      },
       error: (err) => {
-        console.log(err);
+        if (err.error.msg === 'not notes found') {
+          this.notesList = [];
+        }
       },
     });
   }
-getNote(): void {
-  this._NoteService.getNote().subscribe({
-    next: (res) => {
-      this.notesList = res.notes;
-    },
-    error: (err) => {
-      console.log(err);
-
-      if (err.error.msg === 'not notes found') {
-        this.notesList = [];
-      }
-    },
-  });
-}
-  updateNote(note: any, id: string): void {
+  updateNote(note: SendData, id: string): void {
     this.updateNoteForm.patchValue(note);
     this.noteId = id;
   }
@@ -79,23 +73,20 @@ getNote(): void {
       .updateNote(this.noteId, this.updateNoteForm.value)
       .subscribe({
         next: (res) => {
-          console.log(res);
+            this.updateNoteForm.reset();
           this.getNote();
         },
         error: (err) => {
-          console.log(err);
+          err.error.msg === 'not notes found' ? (this.notesList = []) : '';
         },
       });
   }
   deleteUserNote(id: string): void {
     this._NoteService.deleteNote(id).subscribe({
       next: (res) => {
-        console.log(res);
         this.getNote();
       },
-      error: (err) => {
-        console.log(err);
-      },
+      error: (err) => {},
     });
   }
 }

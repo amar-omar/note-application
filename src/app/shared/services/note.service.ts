@@ -29,4 +29,8 @@ export class NoteService {
       headers: { token: '3b8ny__' + localStorage.getItem('userToken') },
     });
   }
+isLoggedIn(): boolean {
+  return localStorage.getItem('userToken') !== null;
+}
+
 }
