@@ -1,0 +1,174 @@
+<div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+  
+  <!-- Top Bar: Add Note Button & Search Input -->
+  <div class="max-w-7xl mx-auto mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+    
+    <!-- زر فتح مودال إضافة نوت -->
+    <button
+      type="button"
+      (click)="openModal(addModal)"
+      class="inline-flex items-center gap-2 bg-purple-600 text-white px-5 py-3 rounded-2xl font-bold shadow-lg shadow-purple-200 hover:bg-purple-700 transition-all hover:-translate-y-0.5"
+    >
+      <i class="fa-solid fa-plus text-sm"></i> 
+      <span>Add Note</span>
+    </button>
+
+    <!-- شريط البحث -->
+    @if (notesList.length > 0) {
+      <div class="w-full sm:w-80 relative">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+        <input
+          [(ngModel)]="searchTermInput"
+          type="search"
+          placeholder="Search by title..."
+          class="w-full bg-white border border-gray-200 rounded-2xl py-3 pl-11 pr-4 text-gray-900 placeholder-gray-400 outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition shadow-sm"
+        />
+      </div>
+    }
+  </div>
+
+  <!-- Notes Grid Section -->
+  @if (notesList.length > 0) {
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (note of notesList | search: searchTermInput; track note._id) {
+          <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            
+            <div>
+              <h3 class="text-lg font-bold text-gray-900 mb-2">
+                {{ note.title }}
+              </h3>
+              <p class="text-sm text-gray-600 leading-relaxed mb-6">
+                {{ note.content }}
+              </p>
+            </div>
+
+            <!-- Card Actions -->
+            <div class="flex items-center gap-3 pt-4 border-t border-gray-50">
+              <!-- تم تعديل هذه الأزرار لتستدعي updateNote وتفتح مودال التعديل معاً -->
+              <button
+                type="button"
+                (click)="updateNote(note, note._id)"
+                class="flex-1 inline-flex items-center justify-center gap-2 bg-amber-50 text-amber-600 hover:bg-amber-100 font-semibold py-2.5 px-4 rounded-xl text-sm transition"
+              >
+                <i class="fa-solid fa-pencil"></i>
+                Update
+              </button>
+
+              <button
+                type="button"
+                (click)="deleteUserNote(note._id)"
+                class="flex-1 inline-flex items-center justify-center gap-2 bg-red-50 text-red-600 hover:bg-red-100 font-semibold py-2.5 px-4 rounded-xl text-sm transition"
+              >
+                <i class="fa-solid fa-trash"></i>
+                Delete
+              </button>
+            </div>
+
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <!-- Empty State -->
+    <div class="max-w-md mx-auto text-center py-16 px-6 bg-white rounded-3xl border border-gray-100 shadow-sm mt-12">
+      <div class="w-16 h-16 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+        <i class="fa-solid fa-note-sticky"></i>
+      </div>
+      <h3 class="text-xl font-bold text-gray-900 mb-1">No Notes Found</h3>
+      <p class="text-gray-500 text-sm mb-6">You don't have any notes yet. Create your first note now!</p>
+      
+      <button
+        type="button"
+        (click)="openModal(addModal)"
+        class="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-xl font-bold shadow-md shadow-purple-200 hover:bg-purple-700 transition"
+      >
+        <i class="fa-solid fa-plus"></i>
+        Add Your First Note
+      </button>
+    </div>
+  }
+
+</div>
+
+<!-- Add Note Modal (Tailwind pure control) -->
+<div #addModal class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+  <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+    <div class="flex justify-between items-center border-b border-gray-100 px-6 py-4">
+      <h1 class="text-xl font-bold text-gray-900">New Note</h1>
+      <button type="button" (click)="closeModal(addModal)" class="text-gray-400 hover:text-gray-600 text-xl font-bold bg-transparent border-0">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="p-6">
+      <form [formGroup]="addNoteForm">
+        <div class="mb-4">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Title</label>
+          <input
+            type="text"
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-gray-900 outline-none focus:border-purple-500 focus:bg-white focus:ring-4 focus:ring-purple-100 transition"
+            placeholder="Enter note title..."
+            formControlName="title"
+          />
+        </div>
+        <div class="mb-6">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Content</label>
+          <textarea
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-gray-900 outline-none focus:border-purple-500 focus:bg-white focus:ring-4 focus:ring-purple-100 transition h-32 resize-none"
+            placeholder="Write your thoughts here..."
+            formControlName="content"
+          ></textarea>
+        </div>
+        <div class="flex justify-end gap-3">
+          <button type="button" (click)="closeModal(addModal)" class="px-5 py-2.5 rounded-xl text-gray-600 font-semibold hover:bg-gray-100 transition">Cancel</button>
+          <button 
+            type="button" 
+            class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-2.5 rounded-xl shadow-md shadow-purple-200 transition" 
+            (click)="onSubmit()">
+            Add Note
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Update Note Modal (Tailwind pure control) -->
+<div #updateModal class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+  <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+    <div class="flex justify-between items-center border-b border-gray-100 px-6 py-4">
+      <h1 class="text-xl font-bold text-gray-900">Update Note</h1>
+      <button type="button" (click)="closeModal(updateModal)" class="text-gray-400 hover:text-gray-600 text-xl font-bold bg-transparent border-0">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="p-6">
+      <form [formGroup]="updateNoteForm">
+        <div class="mb-4">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Title</label>
+          <input
+            type="text"
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-gray-900 outline-none focus:border-purple-500 focus:bg-white focus:ring-4 focus:ring-purple-100 transition"
+            formControlName="title"
+          />
+        </div>
+        <div class="mb-6">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Content</label>
+          <textarea
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 text-gray-900 outline-none focus:border-purple-500 focus:bg-white focus:ring-4 focus:ring-purple-100 transition h-32 resize-none"
+            formControlName="content"
+          ></textarea>
+        </div>
+        <div class="flex justify-end gap-3">
+          <button type="button" (click)="closeModal(updateModal)" class="px-5 py-2.5 rounded-xl text-gray-600 font-semibold hover:bg-gray-100 transition">Cancel</button>
+          <button 
+            type="button" 
+            class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-2.5 rounded-xl shadow-md shadow-amber-200 transition" 
+            (click)="updateNoteForms()">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

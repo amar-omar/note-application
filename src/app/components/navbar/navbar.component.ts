@@ -10,6 +10,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
+  isMenuOpen = false;
   private readonly _AuthService = inject(AuthService);
   private readonly Router = inject(Router);
   logOut(): void {

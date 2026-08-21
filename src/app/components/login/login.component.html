@@ -1,75 +1,119 @@
-<div class="w-75 mx-auto rounded-3 border p-4 my-5 shadow-lg bg-white">
-  <h2 class="text-center fw-bold mb-4 text-primary">Login Now</h2>
+<div 
+  class="min-h-[calc(100vh-64px)] 
+         flex items-center justify-center 
+         bg-gradient-to-br from-purple-100 via-white to-purple-300"
+>
+  <div 
+    class="w-full max-w-md bg-white/90 backdrop-blur-sm border border-purple-100 rounded-3xl shadow-2xl shadow-purple-100/60 p-8 sm:p-10"
+  >
+    <form [formGroup]="loginForm" (ngSubmit)="sendLoginData()" class="w-full">
 
-  <form [formGroup]="loginForm" (ngSubmit)="sendLoginData()">
-    <!-- Email Input -->
-    <div class="mb-3">
-      <label for="email" class="form-label fw-semibold">Email Address</label>
-      <input
-        type="email"
-        id="email"
-        formControlName="email"
-        class="form-control"
-        placeholder="name@example.com"
-      />
-    </div>
+      <!-- API Error Message -->
+      @if (errorMessage) {
+        <div class="mb-5 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600">
+          {{ errorMessage }}
+        </div>
+      }
 
-    @if (
-      loginForm.get("email")?.errors &&
-      (loginForm.get("email")?.touched || loginForm.get("email")?.dirty)
-    ) {
-      <div class="text-white p-1 small bg-danger rounded shadow-lg"role="alert">
-        @if (loginForm.get("email")?.getError("required")) {
-          <p>email is required</p>
-        } @else if (loginForm.get("email")?.getError("email")) {
-          <p>email must be valid</p>
+      <!-- Email -->
+      <div class="mb-5">
+        <label
+          for="email"
+          class="mb-2 block text-sm font-semibold text-gray-700"
+        >
+          Email Address
+        </label>
+
+        <div class="relative">
+          <i
+            class="fa-regular fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+          ></i>
+
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="Enter your email"
+            class="block w-full box-border rounded-xl border border-gray-200 bg-gray-50 py-3.5 pl-11 pr-4 text-gray-900 placeholder-gray-400 outline-none transition-all duration-200 focus:border-purple-500 focus:bg-white focus:ring-4 focus:ring-purple-100"
+          />
+        </div>
+
+        <!-- Email Errors -->
+        @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+
+          @if (loginForm.get('email')?.getError('required')) {
+            <p class="mt-2 text-sm text-red-500">
+              Email is required.
+            </p>
+          }
+
+          @if (loginForm.get('email')?.getError('email')) {
+            <p class="mt-2 text-sm text-red-500">
+              Please enter a valid email address.
+            </p>
+          }
+
         }
       </div>
-    }
 
-    <!-- Password Input -->
-    <div class="mb-3">
-      <label for="password" class="form-label fw-semibold">Password</label>
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        class="form-control"
-        placeholder="••••••••"
-      />
-    </div>
-    @if (
-      loginForm.get("password")?.errors &&
-      (loginForm.get("password")?.touched ||
-        loginForm.get("password")?.dirty)
-    ) {
-      <div class="text-white p-1 my-2 small bg-danger rounded shadow-lg"role="alert">
-        @if (loginForm.get("password")?.getError("required")) {
-          <p>password is required</p>
-        } @else if (loginForm.get("password")?.getError("pattern")) {
-          <p>
-            Password must start with an uppercase letter and contain 6 to 11
-            characters using only lowercase letters and numbers.
-          </p>
+
+      <!-- Password -->
+      <div class="mb-5">
+        <label
+          for="password"
+          class="mb-2 block text-sm font-semibold text-gray-700"
+        >
+          Password
+        </label>
+
+        <div class="relative">
+          <i
+            class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+          ></i>
+
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            placeholder="••••••••"
+            class="block w-full box-border rounded-xl border border-gray-200 bg-gray-50 py-3.5 pl-11 pr-4 text-gray-900 placeholder-gray-400 outline-none transition-all duration-200 focus:border-purple-500 focus:bg-white focus:ring-4 focus:ring-purple-100"
+          />
+        </div>
+
+        <!-- Password Errors -->
+        @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+
+          @if (loginForm.get('password')?.getError('required')) {
+            <p class="mt-2 text-sm text-red-500">
+              Password is required.
+            </p>
+          }
+
+          @if (loginForm.get('password')?.getError('minlength')) {
+            <p class="mt-2 text-sm text-red-500">
+              Password must be at least 6 characters.
+            </p>
+          }
+
         }
       </div>
-    }
 
-    <!-- Submit Button -->
 
-    <button
-      [disabled]="loginForm.invalid ||isLoading"
-      type="submit"
-      class="btn btn-primary w-100 py-2 fw-bold shadow-sm"
-    > Login Now 
-      @if (isLoading) {
-        <i class="fas fa-spinner fa-spin"></i>
-      } 
-    </button>
-    @if (errorMessage) {
-      <div class="alert alert-danger mt-3" role="alert">
-        {{ errorMessage }}
-      </div>
-    }
-  </form>
+      <!-- Button -->
+      <button
+        [disabled]="loginForm.invalid || isLoading"
+        type="submit"
+        class="group flex w-full items-center justify-center gap-2 rounded-xl bg-purple-600 px-4 py-3.5 font-bold text-white shadow-lg shadow-purple-200 transition-all duration-200 hover:-translate-y-0.5 hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        @if (isLoading) {
+          <i class="fa-solid fa-spinner fa-spin"></i>
+          <span>Logging in...</span>
+        } @else {
+          <span>Login Now</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        }
+      </button>
+
+    </form>
+  </div>
 </div>

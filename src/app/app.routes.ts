@@ -5,9 +5,26 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
-    canActivate: [authGuard],
     loadComponent: () =>
       import('./components/home/home.component').then((m) => m.HomeComponent),
+  },
+  {
+    path: 'content',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./components/content/content.component').then((m) => m.ContentComponent),
+  },
+  {
+    path: 'notes',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./components/notes/notes.component').then((m) => m.NotesComponent),
+  },
+  {
+    path: 'organize',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./components/organize/organize.component').then((m) => m.OrganizeComponent),
   },
   {
     path: 'navbar',

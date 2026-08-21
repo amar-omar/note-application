@@ -1,0 +1,71 @@
+<footer class="bg-gray-700 text-gray-300 overflow-x-hidden">
+  <div
+    class="flex flex-col items-center justify-between gap-6 p-4 md:flex-row md:items-center md:gap-0"
+  >
+    <!-- Logo -->
+    <div class="text-center md:text-left">
+      <div class="flex items-center justify-center gap-2 py-2 md:justify-start">
+        <img src="assets/logo.png" alt="logo-image" class="w-10 rounded-xl" />
+
+        <h3>NoteFlow</h3>
+      </div>
+
+      <p>Simple Notes , Better ideas.</p>
+    </div>
+
+    <!-- Navigation -->
+    <div>
+      <ul class="list-none flex justify-between items-center gap-16 font-thin">
+        <li
+          class="hover:text-red-300 cursor-pointer"
+          (click)="scrollToSection('/')"
+        >
+          Home
+        </li>
+
+        <li
+          class="hover:text-red-300 cursor-pointer"
+          (click)="scrollToSection('organize')"
+        >
+          Features
+        </li>
+
+        <li
+          class="hover:text-red-300 cursor-pointer"
+          (click)="scrollToSection('content')"
+        >
+          Contact
+        </li>
+      </ul>
+    </div>
+
+    <!-- Social Media -->
+    <div class="">
+      <ul class="list-none gap-10 flex justify-between items-center text-2xl">
+        <li class="hover:text-black cursor-pointer">
+          <a
+            href="https://x.com/?lang=ar"
+            target="_blank"
+            rel="noopener noreferrer"
+          ></a>
+          <i class="fa-brands fa-square-x-twitter"></i>
+        </li>
+        <li class="hover:text-black cursor-pointer">
+          <a href="x.com"></a> <i class="fa-brands fa-github"></i>
+        </li>
+        <li class="hover:text-blue-400 cursor-pointer">
+          <a href="x.com"></a> <i class="fa-brands fa-square-linkedin"></i>
+        </li>
+        <li class="hover:text-red-400 cursor-pointer">
+          <a href="https://angular.com" target="_blank"></a>
+          <i class="fa-brands fa-angular"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="items-center text-center">
+    <p>2026 NoteFlow. All rights reserved.</p>
+  </div>
+</footer>
